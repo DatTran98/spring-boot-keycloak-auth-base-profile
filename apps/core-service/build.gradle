@@ -10,7 +10,6 @@ java {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
@@ -20,5 +19,11 @@ configurations {
 		exclude group: 'org.springframework.boot', module: 'spring-boot-starter-security'
 	}
 }
-
-
+//config main class
+springBoot {
+	mainClass = 'vn.dattb.coreservice.CoreServiceApplication'
+}
+bootJar {
+	archiveFileName = "${project.name}.jar"
+	version = '0.0.1'
+}

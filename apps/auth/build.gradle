@@ -10,9 +10,13 @@ java {
 
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.keycloak:keycloak-spring-boot-starter:19.0.3'
+    implementation 'org.keycloak:keycloak-spring-security-adapter:19.0.3'
+
 }
 
 dependencyManagement {
@@ -21,9 +25,11 @@ dependencyManagement {
     }
 }
 
-configurations {
-    configureEach {
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-security'
-    }
+springBoot {
+    mainClass = 'vn.dattb.auth.AuthApplication'
 }
 
+bootJar {
+    archiveFileName = "${project.name}.jar"
+    version = '0.0.1'
+}

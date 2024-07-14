@@ -1,10 +1,18 @@
 server:
   port: 8081
 
-
+keycloak:
+  auth-server-url: http://localhost:8080/auth
+  realm: spring-boot-realm
+  resource: spring-boot-client
+  credentials:
+    secret: R2Ch7I4ROmyHw2LNA6FRgUptkcOPOLGW
+  public-client: false
+  ssl-required: external
+  use-resource-role-mappings: true
 spring:
   application:
-    name: authen-gateway-web
+    name: auth
   security:
     oauth2:
       client:
@@ -17,40 +25,3 @@ spring:
             client-secret: R2Ch7I4ROmyHw2LNA6FRgUptkcOPOLGW
             scope: openid, profile, email
             redirect-uri: http://localhost:8080/*
-  cloud:
-    gateway:
-      mvc:
-        http-client:
-          type: autodetect
-        routes:
-            - id: redirect_route
-              uri: http://localhost:8080
-              predicates:
-              - Path=/push
-              - Path=/ping-to-core
-              filters:
-              - RewritePath=/push, /v1/test/push
-              - RewritePath=/ping-to-core, /v1/test/ping
-            - id: redirect_route2
-              uri: http://localhost:8080
-              predicates:
-              - Path=/ping-to-core
-              filters:
-              - RewritePath=/ping-to-core, /v1/test/ping
-        x-forwarded-request-headers-filter:
-          host-enabled: false
-          for-enabled: false
-          proto-enabled: false
-
-keycloak:
-  auth-server-url: http://localhost:8080/auth
-  realm: spring-boot-realm
-  resource: spring-boot-client
-  credentials:
-    secret: R2Ch7I4ROmyHw2LNA6FRgUptkcOPOLGW
-  public-client: false
-  ssl-required: external
-  use-resource-role-mappings: true
-
-
-

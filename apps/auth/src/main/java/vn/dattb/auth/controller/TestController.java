@@ -22,4 +22,14 @@ public class TestController {
     public ResponseEntity<String> push() {
         return ResponseEntity.ok("Hello World!");
     }
+
+    @GetMapping("/public")
+    public String publicEndpoint() {
+        return "This is a public endpoint";
+    }
+
+    @GetMapping("/secured")
+    public String securedEndpoint() {
+        return "This is a secured endpoint";
+    }
 }
