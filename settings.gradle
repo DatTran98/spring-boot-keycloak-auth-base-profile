@@ -1,6 +1,6 @@
-rootProject.name = 'authen-gateway'
+rootProject.name = 'profile-auth-keycloak'
 
-include 'apps:authen-gateway-web'
+include 'apps:auth'
 include 'apps:core-service'
-findProject(':apps:authen-gateway-web').name = 'authen-gateway-web'
+findProject(':apps:auth').name = 'auth'
 findProject(':apps:core-service').name = 'core-service'

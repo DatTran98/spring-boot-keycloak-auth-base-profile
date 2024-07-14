@@ -1,4 +1,4 @@
-package vn.dattb.authengatewayweb.controller;
+package vn.dattb.auth.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package vn.dattb.authengatewayweb.config;
+package vn.dattb.auth.config;
 
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;

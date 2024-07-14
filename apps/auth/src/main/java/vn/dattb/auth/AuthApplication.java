@@ -1,13 +1,13 @@
-package vn.dattb.authengatewayweb;
+package vn.dattb.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AuthenGatewayWebApplication {
+public class AuthApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuthenGatewayWebApplication.class, args);
+		SpringApplication.run(AuthApplication.class, args);
 	}
 
 }
