@@ -1,12 +1,25 @@
 package vn.dattb.auth.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import vn.dattb.auth.dto.AuthRequest;
+import vn.dattb.auth.dto.AuthResponse;
+import vn.dattb.auth.service.AuthService;
 
 @RestController
+@RequestMapping("/test")
 public class TestController {
+
+    private final AuthService authService;
+
+    public TestController(AuthService authService) {
+        this.authService = authService;
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthResponse> test(@RequestBody AuthRequest authRequest) {
+        return ResponseEntity.ok(authService.login(authRequest));
+    }
 
     @GetMapping("/ping")
     public String test() {

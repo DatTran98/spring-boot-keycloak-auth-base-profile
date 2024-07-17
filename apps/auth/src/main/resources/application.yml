@@ -2,14 +2,17 @@ server:
   port: 8081
 
 keycloak:
-  auth-server-url: http://localhost:8080/auth
-  realm: spring-boot-realm
-  resource: spring-boot-client
+  auth-server-url: http://localhost:8080
+  realm: auth-realm
+  resource: auth-gateway
   credentials:
-    secret: R2Ch7I4ROmyHw2LNA6FRgUptkcOPOLGW
+    secret: z3wHLXpKTnAW4XC5ZkA1CuenFMbMjSPH
   public-client: false
   ssl-required: external
   use-resource-role-mappings: true
+  bearer-only: true
+  principal-attribute: preferred_username
+
 spring:
   application:
     name: auth
@@ -18,10 +21,17 @@ spring:
       client:
         provider:
           keycloak:
-            issuer-uri: http://localhost:8080/auth/realms/spring-boot-realm
+            issuer-uri: http://localhost:8080/realms/auth-realm
         registration:
           keycloak:
-            client-id: spring-boot-client
-            client-secret: R2Ch7I4ROmyHw2LNA6FRgUptkcOPOLGW
+            client-id: auth-gateway
+            client-secret: z3wHLXpKTnAW4XC5ZkA1CuenFMbMjSPH
             scope: openid, profile, email
             redirect-uri: http://localhost:8080/*
+
+  main:
+    allow-circular-references: true
+logging:
+  level:
+    org.keycloak: DEBUG
+    org.springframework.security: DEBUG

@@ -18,7 +18,7 @@ services:
       - keycloak-network
   keycloak:
     build:
-      context: ..
+      context: .
       dockerfile: Dockerfile
     container_name: keycloak
     environment:
@@ -50,13 +50,15 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/opt/keycloak/data'
+#      device: '/opt/keycloak/data'
+      device: 'C:\\Users\\HLC\\Documents\\docker-mount\\image-data\\keycloak-date'
   mysql-data:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/var/lib/mysql'
+#      device: '/var/lib/mysql'
+      device: 'C:\\Users\\HLC\\Documents\\docker-mount\\image-data\\mysql-data'
 
 networks:
   keycloak-network:

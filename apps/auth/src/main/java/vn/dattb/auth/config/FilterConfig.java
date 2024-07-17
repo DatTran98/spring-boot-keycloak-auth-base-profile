@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
 public class FilterConfig {
 
     @Bean
-    public FilterRegistrationBean<AddRequestHeaderFilter> loggingFilter() {
-        FilterRegistrationBean<AddRequestHeaderFilter> registrationBean = new FilterRegistrationBean<>();
+    public FilterRegistrationBean<LoggingFilter> loggingFilter() {
+        FilterRegistrationBean<LoggingFilter> registrationBean = new FilterRegistrationBean<>();
 
-        registrationBean.setFilter(new AddRequestHeaderFilter());
+        registrationBean.setFilter(new LoggingFilter());
         registrationBean.addUrlPatterns("/*");
         registrationBean.setOrder(1);
 

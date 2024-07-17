@@ -16,6 +16,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.keycloak:keycloak-spring-boot-starter:19.0.3'
     implementation 'org.keycloak:keycloak-spring-security-adapter:19.0.3'
+    implementation 'org.keycloak:keycloak-core:19.0.3'
+    implementation 'org.keycloak:keycloak-server-spi:19.0.3'
+    implementation 'org.keycloak:keycloak-server-spi-private:19.0.3'
+    implementation 'org.keycloak:keycloak-services:19.0.3'
+
 
 }
 
