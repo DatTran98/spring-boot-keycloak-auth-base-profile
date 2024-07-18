@@ -6,12 +6,15 @@ keycloak:
   realm: auth-realm
   resource: auth-gateway
   credentials:
-    secret: z3wHLXpKTnAW4XC5ZkA1CuenFMbMjSPH
+    secret: Q9EZORTzFm5hBw0aTrLpvaBM0fwqOzWk
   public-client: false
   ssl-required: external
   use-resource-role-mappings: true
   bearer-only: true
   principal-attribute: preferred_username
+#  policy-enforcer-config: {
+#    "http-method-as-scope": true
+#  }
 
 spring:
   application:
@@ -25,7 +28,7 @@ spring:
         registration:
           keycloak:
             client-id: auth-gateway
-            client-secret: z3wHLXpKTnAW4XC5ZkA1CuenFMbMjSPH
+            client-secret: Q9EZORTzFm5hBw0aTrLpvaBM0fwqOzWk
             scope: openid, profile, email
             redirect-uri: http://localhost:8080/*
 
