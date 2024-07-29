@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!-- Create users table -->
+    <changeSet id="1" author="author">
+        <createTable tableName="users">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <!-- other user fields -->
+        </createTable>
+    </changeSet>
+
+    <!-- Create organization_units table -->
+    <changeSet id="2" author="author">
+        <createTable tableName="organization_units">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="parent_id" type="BIGINT"/>
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="organization_units"
+                baseColumnNames="parent_id"
+                referencedTableName="organization_units"
+                referencedColumnNames="id"
+                constraintName="fk_organization_units_parent_id"/>
+    </changeSet>
+
+    <!-- Create users_organization_units table -->
+    <changeSet id="3" author="author">
+        <createTable tableName="users_organization_units">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="organization_unit_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="users_organization_units"
+                baseColumnNames="user_id"
+                referencedTableName="users"
+                referencedColumnNames="id"
+                constraintName="fk_users_organization_units_user_id"/>
+        <addForeignKeyConstraint
+                baseTableName="users_organization_units"
+                baseColumnNames="organization_unit_id"
+                referencedTableName="organization_units"
+                referencedColumnNames="id"
+                constraintName="fk_users_organization_units_organization_unit_id"/>
+    </changeSet>
+
+    <!-- Create roles table -->
+    <changeSet id="4" author="author">
+        <createTable tableName="roles">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create resources table -->
+    <changeSet id="5" author="author">
+        <createTable tableName="resources">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="default_access" type="BOOLEAN" defaultValueBoolean="false"/>
+        </createTable>
+    </changeSet>
+
+    <!-- Create actions table -->
+    <changeSet id="6" author="author">
+        <createTable tableName="actions">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- Create role_resource_action table -->
+    <changeSet id="7" author="author">
+        <createTable tableName="role_resource_action">
+            <column name="role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="resource_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="action_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="role_resource_action"
+                baseColumnNames="role_id"
+                referencedTableName="roles"
+                referencedColumnNames="id"
+                constraintName="fk_role_resource_action_role_id"/>
+        <addForeignKeyConstraint
+                baseTableName="role_resource_action"
+                baseColumnNames="resource_id"
+                referencedTableName="resources"
+                referencedColumnNames="id"
+                constraintName="fk_role_resource_action_resource_id"/>
+        <addForeignKeyConstraint
+                baseTableName="role_resource_action"
+                baseColumnNames="action_id"
+                referencedTableName="actions"
+                referencedColumnNames="id"
+                constraintName="fk_role_resource_action_action_id"/>
+    </changeSet>
+
+    <!-- Create role_inheritance table -->
+    <changeSet id="8" author="author">
+        <createTable tableName="role_inheritance">
+            <column name="parent_role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="child_role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="role_inheritance"
+                baseColumnNames="parent_role_id"
+                referencedTableName="roles"
+                referencedColumnNames="id"
+                constraintName="fk_role_inheritance_parent_role_id"/>
+        <addForeignKeyConstraint
+                baseTableName="role_inheritance"
+                baseColumnNames="child_role_id"
+                referencedTableName="roles"
+                referencedColumnNames="id"
+                constraintName="fk_role_inheritance_child_role_id"/>
+    </changeSet>
+
+    <!-- Create organization_roles table -->
+    <changeSet id="9" author="author">
+        <createTable tableName="organization_roles">
+            <column name="organization_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint
+                baseTableName="organization_roles"
+                baseColumnNames="organization_id"
+                referencedTableName="organization_units"
+                referencedColumnNames="id"
+                constraintName="fk_organization_roles_organization_id"/>
+        <addForeignKeyConstraint
+                baseTableName="organization_roles"
+                baseColumnNames="role_id"
+                referencedTableName="roles"
+                referencedColumnNames="id"
+                constraintName="fk_organization_roles_role_id"/>
+    </changeSet>
+
+    <changeSet id="1722267212115-1" author="Tran Ba Dat">
+        <insert tableName="actions">
+            <column name="name" value="POST"/>
+        </insert>
+        <insert tableName="actions">
+            <column name="name" value="PUT"/>
+        </insert>
+        <insert tableName="actions">
+            <column name="name" value="GET"/>
+        </insert>
+        <insert tableName="actions">
+            <column name="name" value="DELETE"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>
